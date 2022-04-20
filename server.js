@@ -10,6 +10,10 @@ const io = require('socket.io')(http);
 app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
 app.use(bodyParser.json());
 
+app.get('/test', function(req, res){
+  sendTelegramMessage(-701205071, "*Welcome to Intergram* \n");
+});
+
 // handle admin Telegram messages
 app.post('/hook', function(req, res){
     try {
@@ -70,6 +74,7 @@ io.on('connection', function(socket){
 function sendTelegramMessage(chatId, text, parseMode) {
     console.log("send...")
     console.log(text)
+    console.log(chatId)
     request
         .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
         .form({
