@@ -1,0 +1,9 @@
+---
+version: '3'
+services:
+  intergram:
+    env_file:
+      - ./.env
+    build: .
+    ports:
+      - "7111:3000"

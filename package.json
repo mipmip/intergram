@@ -17,7 +17,7 @@
   "authors": [
     "Ido Cohen (http://github.com/idoco)"
   ],
-  "devDependencies": {
+  "xdevDependencies": {
     "webpack-bundle-analyzer": "^3.9.0",
     "webpack-dev-server": "^3.1.11"
   },
