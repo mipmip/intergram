@@ -1,4 +1,5 @@
 const request = require('request');
+const axios = require('axios').default;
 const compression = require('compression');
 const cors = require('cors');
 const express = require('express');
@@ -72,16 +73,33 @@ io.on('connection', function(socket){
 });
 
 function sendTelegramMessage(chatId, text, parseMode) {
-    console.log("send...")
-    console.log(text)
-    console.log(chatId)
-    request
-        .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
-        .form({
-            "chat_id": chatId,
-            "text": text,
-            "parse_mode": parseMode
-        });
+  console.log("send...")
+  console.log(text)
+  console.log(chatId)
+
+  const url = 'https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage';
+  /*
+  request
+    .post(url)
+    .form({
+      "chat_id": chatId,
+      "text": text,
+      "parse_mode": parseMode
+    });
+    */
+
+  axios.post(url, {
+    chat_id: chatId,
+    text: text,
+    parse_mode: parseMode
+  })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
 }
 
 app.post('/usage-start', cors(), function(req, res) {
